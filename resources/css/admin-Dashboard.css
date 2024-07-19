@@ -331,6 +331,19 @@ main .new-users .user-list{
 main .new-users .user-list:hover{
     box-shadow: none;
 }
+.kotakkk{
+    background-color: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: 30px  ;
+    width: fit-content;
+    border: 1px solid var(--color-dark-variant);
+}
+
+input{
+    width: 500px;
+    font-family: Poppins;
+    box-sizing: border-box;
+}
 
 main .new-users .user-list .user{
     display: flex;
@@ -383,9 +396,12 @@ main table tbody tr:last-child td{
 main .recent-orders a{
     text-align: center;
     display: block;
-    margin: 1rem 1rem;
 }
 
+.margin1x1{
+    margin: 1rem 1rem;
+
+}
 .right-section{
     margin-top: 1.4rem;
 }

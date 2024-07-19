@@ -11,7 +11,7 @@ class UpdateInstansiRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateInstansiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'gambar' => ['nullable', 'image'],
+            'nama_instansi' => ['required', 'max:255'],
+            'alamat' => ['required', 'string'],
+            'Deskripsi' => ['required', 'string'],
+            'noHp' => ['required', 'string', 'min:8', 'max:15'],
         ];
     }
 }

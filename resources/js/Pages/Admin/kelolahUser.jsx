@@ -4,8 +4,7 @@ import '../../../asset/fonts/material-icon/css/material-design-iconic-font.css';
 import { Link, Head ,router} from '@inertiajs/react';
 import icon from '../../../../storage/app/public/icon/default.jpg'
 
-
-export default function Dashboard({users}) {
+export default function kelolahUser({users}) {
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     const sideMenu = document.querySelector('aside');

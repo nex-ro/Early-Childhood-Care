@@ -3,6 +3,9 @@ import '../../../css/admin-Dashboard.css';
 import '../../../asset/fonts/material-icon/css/material-design-iconic-font.css';
 import { Link, Head ,router} from '@inertiajs/react';
 import icon from '../../../../storage/app/public/icon/default.jpg'
+import TextAreaInput from "@/Components/Modal";
+
+
 
 export default function Dashboard({datas}) {
   const [darkMode, setDarkMode] = useState(false);
@@ -36,8 +39,10 @@ export default function Dashboard({datas}) {
     if(!window.confirm("Are you sure want to delete this project?")){
         return;
     }
-    router.delete(route('admin.destroyUser', data.id));
+    router.delete(route('admin.destroyInstansi', data.id));
 }
+
+
   return (
     <div className="kotak">
       <aside>
@@ -74,9 +79,9 @@ export default function Dashboard({datas}) {
         <div className="recent-orders tbl-Full">
           <div className="flex flex-row justify-between ">
           <h2 className='my-3'>Recent Orders</h2>
-          <button className=" bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600 mr-3">
+          <Link href={route('admin.inputInstansi')}  className="margin1x1 bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600 mr-3">
                         Tambah Data Instansi
-        </button>
+        </Link>
           </div>
           <div className="overflow-x-auto">
   <table className="table" >
@@ -97,7 +102,8 @@ export default function Dashboard({datas}) {
       {datas.data.map((data) => (
         <tr key={data.id}>
         <td>{data.id}</td>
-        <td><img
+        <td className=''><img
+        className='m-auto'
                 src={data.gambar}
                 style={{ width: 60 }} />
         </td>
@@ -106,12 +112,12 @@ export default function Dashboard({datas}) {
         <td>{data.rating}</td>
         <td>{data.updated_at}</td>
         <td className="px-3 py-2 text-nowrap flex flex-column justify-center">
-        <button onClick={(e) => editUser(data)}className="font-medium text-green-600 dark:text-green-500 hover:underline mx-1 ">
+        <button onClick={(e) => DetailUser(data)}className="font-medium text-green-600 dark:text-green-500 hover:underline mx-1 ">
              Detail
         </button>
-        <button onClick={(e) => editUser(data)}className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1 px-2">
+        <Link href={route('admin.edit',{ id: data.id })}  className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1 px-2">
              Edit
-        </button>
+        </Link>
         <button onClick={(e) => deleteUser(data)}className="font-medium text-blue-600 dark:text-red-500 hover:underline mx-1">
             Delete
         </button>

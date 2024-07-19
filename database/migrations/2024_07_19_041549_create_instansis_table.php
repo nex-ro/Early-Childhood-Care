@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('nama_instansi');
             $table->string('alamat');
             $table->string('noHp', 20);
-            $table->String('gambar');
+            $table->String('gambar')->nullable();
             $table->string('Deskripsi');
-            $table->float('rating');
+            $table->float('rating')->default(0.0);
             $table->timestamps();
         });
     }
