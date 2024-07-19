@@ -35,7 +35,7 @@ export default function Login( ) {
                     <div className="signin-content">
                         <div className="signin-image">
                             <figure><img src={RegisterImg} alt="sign in"/></figure>
-                            <a  href={route('register')} className="signup-image-link">Daftar akun</a>
+                            <a  href={route('register')} className="signup-image-link">Daftar akunnnnn</a>
                         </div>
 
                         <div className="signin-form">
