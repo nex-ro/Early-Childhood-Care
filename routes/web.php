@@ -11,6 +11,9 @@ use App\Http\Controllers\UserController;
 
 use Inertia\Inertia;
 Route::get('/', [UserController::class, 'index'])->name('homepage');
+Route::get('/detail/{id}', [UserController::class, 'show'])->name('user.detail');
+// post
+Route::post('/komenPost', [UserController::class, 'store'])->name('user.komenPost')->middleware('auth');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -37,9 +40,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // post
     Route::post('/admin/inputInstansi', [AdminController::class, 'storeInstansi'])->name('admin.storeInstansi');
+
+
+
     // delete
     Route::delete('admin/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.destroyUser'); // Tambahkan rute ini
     Route::delete('admin/del/{data}', [AdminController::class, 'destroyInstansi'])->name('admin.destroyInstansi'); // Tambahkan rute ini
+    Route::delete('admin/delKoment/{id}', [AdminController::class, 'destroyKoment'])->name('user.destroyKoment'); // Tambahkan rute ini
+
 
 
 });

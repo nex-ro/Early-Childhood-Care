@@ -13,6 +13,7 @@ use App\Http\Resources\userResources;
 use App\Http\Resources\instansiResources;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Models\komentar;
 
 class AdminController extends Controller
 {
@@ -99,5 +100,14 @@ class AdminController extends Controller
         }
         return to_route('admin.kelolaInstansi')
             ->with('Success', "instansi \"$name\" berhasil dihapus");
+    }
+    public function destroyKoment($id)
+    {
+        $komentar = komentar::findOrFail($id); // Menggunakan findOrFail untuk menemukan instansi berdasarkan ID
+        $id_ins =$komentar->instansi_id;
+
+        $komentar->delete();
+        return to_route('user.detail',$id_ins)
+            ->with('Success', "komentar berhasil dihapus");
     }
 }

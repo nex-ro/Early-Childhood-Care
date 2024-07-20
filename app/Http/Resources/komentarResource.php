@@ -7,7 +7,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
-class userResources extends JsonResource
+
+class komentarResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,13 +18,15 @@ class userResources extends JsonResource
     public function toArray(Request $request): array
     {
         return[
-            "id" => $this->id,
-            "name" => $this->name,
-            "email" => $this->email,
-            "role" => $this->role,
-            'gambar' => $this->gambar ? Storage::url($this->gambar):'',
+            'id' => $this->id,
+            "user_id" => $this->user_id,
+            'user_name' => $this->user ? $this->user->name : 'Unknown User',
+            'user_gambar' => $this->user ? Storage::url($this->user->gambar) : '',
+            "komentar" => $this->komentar,
+            "instansi_id" => $this->instansi_id,
             "created_at" => (new Carbon($this->created_at))->format('y-m-d'),
             "updated_at" => (new Carbon($this->updated_at))->format('y-m-d'),
+
         ];
     }
 }

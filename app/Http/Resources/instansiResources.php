@@ -26,6 +26,8 @@ class instansiResources extends JsonResource
             'daerah'=>$this->daerah,
             'Deskripsi' => $this->Deskripsi,
             'rating' => $this->rating,
+            'jmlhReviewer'=>$this->jmlhReviewer,
+            'terdaftar'=>$this->terdaftar,
             'created_at' => (new Carbon($this->create_at))->format('y-m-d'),
             'updated_at' => (new Carbon($this->create_at))->format('y-m-d'),
         ];

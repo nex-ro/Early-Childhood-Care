@@ -19,7 +19,9 @@ return new class extends Migration
             $table->String('gambar')->nullable();
             $table->string('Deskripsi');
             $table->string('daerah')->default("pekanbaru");
-            $table->float('rating')->default(0.0);
+            $table->float('rating', 8, 2)->default(0.0);
+            $table->float('jmlhReviewer', 8, 2)->default(0);
+            $table->boolean('terdaftar')->default(0);
             $table->timestamps();
         });
     }

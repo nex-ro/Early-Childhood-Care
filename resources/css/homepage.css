@@ -61,7 +61,6 @@ footer {
 
 nav {
     box-shadow: var(--box-shadow);
-    border-radius: 0 0 20px 20px !important;
 }
 
 .kartu {
@@ -70,8 +69,15 @@ nav {
 
 .kartu:hover {
     transform: scale(1.01);
+    box-shadow: none;
 }
 
 .cardTtl {
     font-size: 2rem;
+}
+.shadowBox{
+    box-shadow: var(--box-shadow);
+}
+.shadowBox:hover{
+    box-shadow: none;
 }

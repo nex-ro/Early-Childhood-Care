@@ -109,12 +109,12 @@ export default function Dashboard({datas}) {
         </td>
         <td>{data.nama_instansi}</td>
         <td>{data.noHp}</td>
-        <td>{data.rating}</td>
+        <td>{data.rating/data.jmlhReviewer? data.rating/data.jmlhReviewer:"not rated yet"}</td>
         <td>{data.updated_at}</td>
         <td className="px-3 py-2 text-nowrap flex flex-column justify-center">
-        <button onClick={(e) => DetailUser(data)}className="font-medium text-green-600 dark:text-green-500 hover:underline mx-1 ">
+        <Link href={route('user.detail',{id:data.id})} className="font-medium text-green-600 dark:text-green-500 hover:underline mx-1 ">
              Detail
-        </button>
+        </Link>
         <Link href={route('admin.edit',{ id: data.id })}  className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1 px-2">
              Edit
         </Link>
