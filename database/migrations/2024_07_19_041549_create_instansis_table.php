@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('noHp', 20);
             $table->String('gambar')->nullable();
             $table->string('Deskripsi');
+            $table->string('daerah')->default("pekanbaru");
             $table->float('rating')->default(0.0);
             $table->timestamps();
         });

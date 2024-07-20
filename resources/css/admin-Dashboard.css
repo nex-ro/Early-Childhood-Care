@@ -418,6 +418,7 @@ main .recent-orders a{
 
 .right-section .dark-mode{
     background-color: var(--color-light);
+    z-index: 1;
     display: flex;
     justify-content: space-around;
     align-items: center;

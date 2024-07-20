@@ -23,6 +23,7 @@ class instansiResources extends JsonResource
             'alamat' => $this->alamat,
             'gambar' => $this->gambar ? Storage::url($this->gambar):'',
             'noHp'=>$this->noHp,
+            'daerah'=>$this->daerah,
             'Deskripsi' => $this->Deskripsi,
             'rating' => $this->rating,
             'created_at' => (new Carbon($this->create_at))->format('y-m-d'),

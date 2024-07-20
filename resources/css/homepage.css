@@ -1,0 +1,77 @@
+:root {
+    --color-light: rgba(132, 139, 200, 0.18);
+    --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.containerBSR {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+.tes {
+    position: relative;
+}
+
+.backgroundaja {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background-color: salmon;
+}
+
+.tabs .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #007BFF;
+    border: none;
+    background: none;
+    font-size: 18px;
+    margin: 0 5px;
+}
+
+.tabs .tab.active {
+    color: #0056b3;
+    border-bottom: 2px solid #0056b3;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+footer {
+    box-shadow: var(--box-shadow);
+}
+
+nav {
+    box-shadow: var(--box-shadow);
+    border-radius: 0 0 20px 20px !important;
+}
+
+.kartu {
+    box-shadow: var(--box-shadow);
+}
+
+.kartu:hover {
+    transform: scale(1.01);
+}
+
+.cardTtl {
+    font-size: 2rem;
+}

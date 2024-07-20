@@ -14,6 +14,7 @@ const { data, setData, post, errors, reset } = useForm({
     alamat: datak.alamat || "",
     Deskripsi: datak.Deskripsi || "",
     noHp:datak.noHp || "",
+    daerah:datak.daerah||"",
     _method: "PUT",
 
 });
@@ -167,6 +168,32 @@ post(route('admin.updateInstansi', { id: datak.id }));
                                             />
                                             <p className="text-red-500 text-xs italic mb-3">
                                                 {errors.alamat}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-wrap -mx-3 mb-1">
+                                        <div className="w-full px-3">
+                                            <label
+                                                className="block uppercase tracking-wide text-xs font-bold mb-2"
+                                                htmlFor="daerah"
+                                            >
+                                                Daerah
+                                            </label>
+                                            <input
+                                                value={data.daerah}
+                                                id="daerah"
+                                                name="daerah"
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "daerah",
+                                                        e.target.value
+                                                    )
+                                                }
+                                                className="appearance-none block w-full bg-gray-200 border border-gray-200 rounded py-3 px-3 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                type="text"
+                                            />
+                                            <p className="text-red-500 text-xs italic mb-3">
+                                                {errors.daerah}
                                             </p>
                                         </div>
                                     </div>

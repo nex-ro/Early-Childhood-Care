@@ -27,6 +27,7 @@ class StoreInstansiRequest extends FormRequest
             'alamat' => ['required', 'string'],
             'Deskripsi' => ['required', 'string'],
             'noHp' => ['required', 'string', 'min:8', 'max:15'],
+            'daerah'=> ['nullable', 'string'],
         ];
     }
 }
