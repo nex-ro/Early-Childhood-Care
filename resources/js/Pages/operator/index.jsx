@@ -3,6 +3,7 @@ import '../../../css/admin-Dashboard.css';
 import '../../../asset/fonts/material-icon/css/material-design-iconic-font.css';
 import { Link, Head } from '@inertiajs/react';
 import icon from '../../../../storage/app/public/icon/default.jpg'
+import logo from '../../../../storage/app/public/icon/logo.png'
 
 export default function Dashboard({auth}) {
   const [darkMode, setDarkMode] = useState(false);
@@ -38,8 +39,8 @@ export default function Dashboard({auth}) {
       <aside>
         <div className="toggle">
           <div className="logo">
-            <img src="images/logo.png" alt="Logo"/>
-            <h2>Asmr<span className="danger">Prog</span></h2>
+            <img src={logo} alt="Logo"/>
+            <h2 className='logoTxt'>Early Childhood <span className="danger">Care</span></h2>
           </div>
           <div className="close" id="close-btn">
             <i className="zmdi-lg zmdi-close"></i>
@@ -61,46 +62,32 @@ export default function Dashboard({auth}) {
         </div>
       </aside>
       <main>
-        <h1>Analytics</h1>
+        <h1></h1>
         <div className="recent-orders tbl-Full">
-          <h2>Recent Orders</h2>
+          <h2>Daftar Pendaftar</h2>
           <div className="overflow-x-auto">
-  <table className="table" >
+  <table className="shadowBoxOnly table border border-gray-300 border-collapse w-full" >
     {/* head */}
-    <thead>
+    <thead className='bg-black text-white'>
       <tr>
         <th></th>
         <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
+        <th>FIle</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody>
       {/* row 1 */}
       <tr>
         <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
+        <td>Deri</td>
+        <td><i class="zmdi zmdi-file"></i></td>
+        <td>waiting</td>
       </tr>
       {/* row 2 */}
-      <tr>
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-      </tr>
-      {/* row 3 */}
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
     </tbody>
   </table>
 </div>
-          <a href="#">Show All</a>
         </div>
       </main>
       <div className="right-section">

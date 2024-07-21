@@ -54,7 +54,7 @@ export default function User_header({ auth }) {
                                         </Dropdown.Trigger>
 
                                         <Dropdown.Content>
-                                            <Dropdown.Link href={route("profile.edit")}>
+                                            <Dropdown.Link href={route("user.profile")}>
                                                 Profile
                                             </Dropdown.Link>
                                             <Dropdown.Link

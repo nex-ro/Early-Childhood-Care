@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\komentar;
 use App\Http\Resources\komentarResource;
-
+use App\Http\Resources\userResources;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 
 class UserController extends Controller
@@ -22,34 +26,40 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
- public function index()
-{
-    $query = Instansi::query();
+    public function index()
+    {
+        $query = Instansi::query();
 
-    if (request("name")) {
-        $query->where("nama_instansi", "like", "%" . request("name") . "%");
+        if (request("name")) {
+            $query->where("nama_instansi", "like", "%" . request("name") . "%");
+        }
+        if (request("daerah")) {
+            $query->where('daerah', request("daerah"));
+        }
+        if (request("rating")) {
+            $rating = (int) request("rating");
+            $query->whereBetween(DB::raw('rating / jmlhReviewer'), [$rating, 5]);
+        }
+        // Sort by rating in descending order
+        $query->orderBy('rating', 'desc');
+        // Paginate the results
+        $instansi = $query->paginate(10);
+        return Inertia::render('user/index', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'datas' => InstansiResources::collection($instansi),
+        ]);
     }
-    if (request("daerah")) {
-        $query->where('daerah', request("daerah"));
+
+    public function profile(Request $request)
+    {
+
+        return Inertia::render('user/profile', [
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => session('status'),
+
+        ]);
     }
-    if (request("rating")) {
-        $rating = (int) request("rating");
-        $query->whereBetween(DB::raw('rating / jmlhReviewer'), [$rating, 5]);
-    }
-    $query->orderBy('rating', 'desc');
-
-    // Debugging: Print the SQL query
-    // dd($query->toSql(), $query->getBindings());
-
-    $instansi = $query->paginate(10);
-    return Inertia::render('user/index', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'datas' => InstansiResources::collection($instansi),
-    ]);
-}
-
-
 
 
     /**
@@ -80,15 +90,14 @@ class UserController extends Controller
         ]);
         $instansi = Instansi::findOrFail($id); // Menggunakan findOrFail untuk menemukan instansi berdasarkan ID
         $totalReviews = $instansi->jmlhReviewer + 1;
-        $newRating = (($instansi->rating ) + $rating);
+        $newRating = (($instansi->rating) + $rating);
         // Update the instansi with the new rating and increment the number of reviewers
         $instansi->update([
             'rating' => $newRating,
             'jmlhReviewer' => $totalReviews,
         ]);
-        return to_route('user.detail',$id)
-        ->with('Success', "Komentar berhasil ditambahkan");
-
+        return to_route('user.detail', $id)
+            ->with('Success', "Komentar berhasil ditambahkan");
     }
 
     /**

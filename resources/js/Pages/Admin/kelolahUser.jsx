@@ -5,8 +5,9 @@ import { Link, Head ,router} from '@inertiajs/react';
 import icon from '../../../../storage/app/public/icon/default.jpg'
 import Swal from 'sweetalert2'
 import Pagination from "@/Components/Pagination";
+import logo from '../../../../storage/app/public/icon/logo.png'
 
-export default function kelolahUser({users ,success}) {
+export default function kelolahUser({auth,users ,success}) {
   console.log(success);
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
@@ -46,7 +47,7 @@ export default function kelolahUser({users ,success}) {
       <aside>
         <div className="toggle">
           <div className="logo">
-            <img src="images/logo.png" alt="Logo"/>
+            <img src={logo} alt="Logo"/>
             <h2 className='logoTxt'>Early Childhood <span className="danger">Care</span></h2>
           </div>
           <div className="close" id="close-btn">
@@ -142,8 +143,8 @@ export default function kelolahUser({users ,success}) {
           </div>
           <div className="profile">
             <div className="info">
-              <p>Hey, <b>Reza</b></p>
-              <small className="text-muted">Admin</small>
+              <p>Hey, <b>{auth.user.name}</b></p>
+              <small className="text-muted">{auth.user.role}</small>
             </div>
             <div className="profile-photo">
               <img src={icon} alt="Profile"/>

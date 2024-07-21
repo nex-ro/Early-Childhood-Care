@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -29,16 +30,28 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $data = $request->validated();
+        $user = $request->user();
+        dd($user ,$data);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $image = $data['gambar'] ?? null;
+        if($image){
+            $data['gambar'] = $image->store('project/' .Str::random(), 'public');
+        }
+        // Update user profile
+        $user->fill($data);
+
+        // If the email field is updated, set email_verified_at to null
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        $request->user()->save();
+        // Save changes
+        $user->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('user.profile');
     }
+
 
     /**
      * Delete the user's account.

@@ -5,11 +5,12 @@ import { Link, Head ,router} from '@inertiajs/react';
 import icon from '../../../../storage/app/public/icon/default.jpg'
 import TextAreaInput from "@/Components/Modal";
 import Pagination from "@/Components/Pagination";
+import logo from '../../../../storage/app/public/icon/logo.png'
 
 
 
 
-export default function Dashboard({datas}) {
+export default function Dashboard({auth,datas}) {
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     const sideMenu = document.querySelector('aside');
@@ -50,7 +51,7 @@ export default function Dashboard({datas}) {
       <aside>
         <div className="toggle">
           <div className="logo">
-            <img src={icon} alt="Logo"/>
+            <img src={logo} alt="Logo"/>
             <h2 className='logoTxt'>Early Childhood <span className="danger">Care</span></h2>
           </div>
           <div className="close" id="close-btn">
@@ -156,8 +157,8 @@ export default function Dashboard({datas}) {
           </div>
           <div className="profile">
             <div className="info">
-              <p>Hey, <b>Reza</b></p>
-              <small className="text-muted">Admin</small>
+              <p>Hey, <b>{auth.user.name}</b></p>
+              <small className="text-muted">{auth.user.role}</small>
             </div>
             <div className="profile-photo">
               <img src={icon}  alt="Profile"/>

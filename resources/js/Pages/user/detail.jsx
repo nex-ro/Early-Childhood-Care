@@ -7,7 +7,7 @@ import { Inertia } from '@inertiajs/inertia'; // Ensure you import Inertia
 
 export default function Detail({ auth, datas, dataKomentar }) {
     const instansi = datas['data'];
-
+    console.log(datas);
     // Generate star rating
     const generateStars = (rating, jmlhReviewer) => {
         const newStars = [];
@@ -93,7 +93,17 @@ export default function Detail({ auth, datas, dataKomentar }) {
         }
     };
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
+    // Fungsi untuk membuka modal
+    const openModal = () => {
+      setIsModalOpen(true);
+    };
+
+    // Fungsi untuk menutup modal
+    const closeModal = () => {
+      setIsModalOpen(false);
+    };
 
     // Delete comment
     const deletekomen = (id) => {
@@ -102,6 +112,9 @@ export default function Detail({ auth, datas, dataKomentar }) {
         }
         router.delete(route("user.destroyKoment", id));
     };
+    const daftar=(id_instansi , id_user)=>{
+
+    }
 
     return (
         <div className='bg-gray-100'>
@@ -142,8 +155,8 @@ export default function Detail({ auth, datas, dataKomentar }) {
                             </div>
                             <div className="flex mb-4">
                                 <div className="mr-4">
-                                    <span className="font-bold text-gray-700">Terdaftar</span>
-                                    <span className="text-gray-600">{instansi.noHp}</span>
+                                    <span className="font-bold text-gray-700">Terdaftar     :</span>
+                                    <span className="text-gray-600">{instansi.terdaftar==1?" terdaftar" :"Tidak terdaftar"}</span>
                                 </div>
                             </div>
                             <div>
@@ -152,6 +165,111 @@ export default function Detail({ auth, datas, dataKomentar }) {
                                     {instansi.Deskripsi}
                                 </p>
                             </div>
+                            {instansi.terdaftar && instansi.dokumentDaftar ?   <button onClick={openModal} style={{ fontSize: '2rem' }} className="w-full focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 " type="button">
+                                Daftar
+                            </button> :""}
+                             {/* Main modal */}
+      {isModalOpen && (
+        <div
+          id="crud-modal"
+          tabIndex="-1"
+          aria-hidden="true"
+          className="fixed inset-0 z-50 flex items-center justify-center w-full h-full bg-gray-900 bg-opacity-50"
+        >
+          <div className="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow ">
+            {/* Modal content */}
+            <div className="relative bg-white rounded-lg shadow ">
+              {/* Modal header */}
+              <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
+                <h3 className="text-lg font-semibold text-gray-900 ">
+                  Create New Product
+                </h3>
+                <button
+                  type="button"
+                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center "
+                  onClick={closeModal}
+                >
+                  <svg
+                    className="w-3 h-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 14"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                    />
+                  </svg>
+                  <span className="sr-only">Close modal</span>
+                </button>
+              </div>
+              {/* Modal body */}
+              <form className="p-4 md:p-5">
+                <div className="grid gap-4 mb-4 grid-cols-2">
+                  <div className="col-span-2">
+                    <label
+                      htmlFor="name"
+                      className="block mb-2 text-sm font-medium text-gray-900 "
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                      placeholder="Type product name"
+                      required
+                    />
+                  </div>
+                  <div className="col-span-2 sm:col-span-1">
+                    <label
+                      htmlFor="price"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Dokument Pendaftaran
+                    </label>
+                    <input
+                      type="number"
+                      name="price"
+                      id="price"
+                      disabled
+                      className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                      placeholder='📁 file'
+                      required
+                    />
+                  </div>
+                  <i style={{fontSize:"0.95rem"}} >(*Silakan print dan lengkapi file ini, kemudian pindai (scan) untuk dikirim)</i>
+                  <div className="col-span-2">
+                    <label
+                      htmlFor="name"
+                      className="block mb-2 text-sm font-medium text-gray-900 "
+                    >
+                      Form pendaftaran
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                      placeholder="Type product name"
+                      required
+                    />
+                  </div>
+                </div>
+                <button onClick={()=>{daftar}} class="text-white inline-flex w-full justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                    Daftar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
                         </div>
                     </div>
                 </div>
@@ -160,7 +278,7 @@ export default function Detail({ auth, datas, dataKomentar }) {
             <section className="bg-grey-1 py-8 lg:py-16 antialiased">
                 <div className="max-w-2xl lg:mx-28 md:mx-auto px-4">
                     <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-lg lg:text-2xl font-bold text-gray-900">Discussion ({dataKomentar.dlength()})</h2>
+                        <h2 className="text-lg lg:text-2xl font-bold text-gray-900">komentar ({dataKomentar.data.length})</h2>
                     </div>
                     <form className="mb-6" onSubmit={handleSubmit}>
                         <div>

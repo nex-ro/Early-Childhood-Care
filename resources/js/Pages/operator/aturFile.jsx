@@ -4,6 +4,7 @@ import '../../../asset/fonts/material-icon/css/material-design-iconic-font.css';
 import { Link, Head, router } from "@inertiajs/react";
 import Swal from 'sweetalert2';
 import icon from '../../../../storage/app/public/icon/default.jpg';
+import logo from '../../../../storage/app/public/icon/logo.png'
 
 export default function Dashboard({ auth, instansi }) {
   const [darkMode, setDarkMode] = useState(false);
@@ -124,8 +125,8 @@ export default function Dashboard({ auth, instansi }) {
       <aside>
         <div className="toggle">
           <div className="logo">
-            <img src="images/logo.png" alt="Logo" />
-            <h2>Asmr<span className="danger">Prog</span></h2>
+            <img src={logo} alt="Logo" />
+            <h2 className='logoTxt'>Early Childhood <span className="danger">Care</span></h2>
           </div>
           <div className="close" id="close-btn">
             <i className="zmdi-lg zmdi-close"></i>

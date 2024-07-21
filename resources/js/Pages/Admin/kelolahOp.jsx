@@ -6,6 +6,7 @@ import icon from '../../../../storage/app/public/icon/default.jpg';
 import Swal from 'sweetalert2';
 import Dropdown from '@/Components/Dropdown';
 import Pagination from "@/Components/Pagination";
+import logo from '../../../../storage/app/public/icon/logo.png'
 
 export default function KelolahUser({ users, success, auth }) {
   console.log(users);
@@ -52,7 +53,7 @@ export default function KelolahUser({ users, success, auth }) {
       <aside>
         <div className="toggle">
           <div className="logo">
-            <img src="images/logo.png" alt="Logo" />
+            <img src={logo} alt="Logo" />
             <h2 className='logoTxt'>Early Childhood <span className="danger">Care</span></h2>
           </div>
           <div className="close" id="close-btn">
