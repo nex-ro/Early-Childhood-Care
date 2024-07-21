@@ -4,6 +4,7 @@ import '../../../css/login.css';
 import RegisterImg from '../../../asset/images/signup-image.jpg';
 import LoginImg from '../../../asset/images/signin-image.jpg'
 import '../../../asset/fonts/material-icon/css/material-design-iconic-font.css'
+import bg from '../../../asset/images/lgn.jpg';
 
 
 export default function Login( ) {
@@ -26,7 +27,8 @@ export default function Login( ) {
     };
 
     return (
-        <div className="main" >
+        <div className="main"                style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        >
              <Head title="Login" />
 
             {/* Sign in Form */}
@@ -35,7 +37,8 @@ export default function Login( ) {
                     <div className="signin-content">
                         <div className="signin-image">
                             <figure><img src={RegisterImg} alt="sign in"/></figure>
-                            <a  href={route('register')} className="signup-image-link">Daftar akunnnnn</a>
+                            <a  href={route('register')} className="signup-image-link">Daftar akun user</a>
+                            <a href={route('registerOp')} className="signup-image-link">Daftar Akun Operator</a>
                         </div>
 
                         <div className="signin-form">
@@ -60,12 +63,7 @@ export default function Login( ) {
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
                             </div>
                             </form>
-                            <div className="social-login">
-                                <span className="social-label">Or login with</span>
-                                <ul className="socials">
-                                    <li><a href="#" className="btn-google"><i className="zmdi zmdi-google"></i> Google</a></li>
-                                </ul>
-                            </div>
+
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,7 @@ import User_footer from '@/Components/User_footer'
 
 import "../../../asset/fonts/material-icon/css/material-design-iconic-font.css";
 
-const Homepage = ({ auth, datas, queryParams = {} }) => {
+const Homepage = ({ auth, datas, queryParams = null }) => {
     // Initialize queryParams
     queryParams = queryParams || {};
     // Update query parameters and fetch results
@@ -18,7 +18,7 @@ const Homepage = ({ auth, datas, queryParams = {} }) => {
         } else {
             delete queryParams[name];
         }
-        router.get(route("homepage"), queryParams);
+        router.get(route("home"), queryParams);
     };
 
     const onKeyPress = (name, e) => {

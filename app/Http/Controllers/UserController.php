@@ -22,7 +22,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+ public function index()
 {
     $query = Instansi::query();
 
@@ -36,9 +36,11 @@ class UserController extends Controller
         $rating = (int) request("rating");
         $query->whereBetween(DB::raw('rating / jmlhReviewer'), [$rating, 5]);
     }
-    // Sort by rating in descending order
     $query->orderBy('rating', 'desc');
-    // Paginate the results
+
+    // Debugging: Print the SQL query
+    // dd($query->toSql(), $query->getBindings());
+
     $instansi = $query->paginate(10);
     return Inertia::render('user/index', [
         'canLogin' => Route::has('login'),
@@ -46,6 +48,7 @@ class UserController extends Controller
         'datas' => InstansiResources::collection($instansi),
     ]);
 }
+
 
 
 

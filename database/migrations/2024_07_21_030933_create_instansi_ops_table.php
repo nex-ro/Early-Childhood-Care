@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('komentars', function (Blueprint $table) {
+        Schema::create('instansi_ops', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('instansi_id')->constrained('instansi')->onDelete('cascade');
-            $table->string('komentar');
+            $table->string('nama');
+            $table->string('email')->unique();
+            $table->string('status')->default('waiting');
+            $table->string('noHp', 20);
+            $table->string('nik');
+            $table->string('surat');
+            $table->string('password');
             $table->timestamps();
         });
     }
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('komentars');
+        Schema::dropIfExists('instansi_ops');
     }
 };

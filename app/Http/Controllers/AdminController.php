@@ -9,11 +9,16 @@ use App\Http\Requests\UpdateInstansiRequest;
 use Inertia\Inertia;
 use App\Models\User;
 use App\Models\Instansi;
+use App\Models\InstansiOp;
+
 use App\Http\Resources\userResources;
 use App\Http\Resources\instansiResources;
+use App\Http\Resources\instansi_opResource;
+
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\komentar;
+
 
 class AdminController extends Controller
 {
@@ -38,6 +43,15 @@ class AdminController extends Controller
     public function inputInstansi(){
         return Inertia::render('Admin/input');
     }
+    public function kelolahOp(){
+        $instansiOps = InstansiOp::with('instansi')->paginate(10);
+        return Inertia::render('Admin/kelolahOp',[
+            "users" =>instansi_opResource::collection($instansiOps),
+        ]);
+    }
+
+
+
     //create
     public function storeInstansi(StoreInstansiRequest $request){
         $data = $request->validated();
@@ -53,6 +67,7 @@ class AdminController extends Controller
         return to_route('admin.kelolaInstansi')
         ->with('Success', 'instansi berhasil dibuat');
     }
+
 
     // update
     public function editInstansi($id)
@@ -82,6 +97,46 @@ class AdminController extends Controller
         ->with('Success', "instansi  \"$name\" was updated");
     }
 
+    public function updateStatus(Request $request, $id)
+    {
+        // Temukan entri di tabel InstansiOp dengan ID yang diberikan
+        $instansiOp = InstansiOp::findOrFail($id);
+
+        // Periksa status
+        if ($request->status === 'Diterima' || $request->status === 'Ditolak') {
+            // Jika status diterima, tambahkan data ke tabel User
+            if ($request->status === 'Diterima') {
+                $id_instansi=$instansiOp->instansi_id;
+                $instansi = Instansi::findOrFail($id_instansi);
+                $instansi->terdaftar = true;
+                $instansi->save();
+
+
+
+                // Membuat entri baru di tabel User
+                User::create([
+                    'name' => $instansiOp->nama,       // Nama dari InstansiOp
+                    'email' => $instansiOp->email,     // Email dari InstansiOp
+                    'password' =>$instansiOp->password, // Password dari InstansiOp atau default
+                    'noHp' => $instansiOp->noHp,       // No Hp dari InstansiOp
+                    'role' => 'operator',
+                ]);
+            }
+
+            // Hapus entri dari tabel InstansiOp
+            $instansiOp->delete();
+        } else {
+            // Jika status tidak dikenali, hanya perbarui status di tabel InstansiOp
+            $instansiOp->status = $request->status;
+            $instansiOp->save();
+        }
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('admin.kelolahUser')->with('success', 'Status telah diperbarui.');
+    }
+
+
+
     // delete
     public function destroyUser(User $user)
     {
@@ -110,4 +165,5 @@ class AdminController extends Controller
         return to_route('user.detail',$id_ins)
             ->with('Success', "komentar berhasil dihapus");
     }
+
 }

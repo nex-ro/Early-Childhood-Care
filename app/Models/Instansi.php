@@ -15,6 +15,11 @@ class Instansi extends Model
     {
         return $this->hasMany(Komentar::class);
     }
+    public function instansiOps()
+    {
+        return $this->hasMany(InstansiOp::class);
+    }
+
 }
 
 

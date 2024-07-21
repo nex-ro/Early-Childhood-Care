@@ -108,7 +108,7 @@ export default function Detail({ auth, datas, dataKomentar }) {
             <User_header auth={auth} />
             <div className="bg-gray-100 py-8">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <Link href={route("homepage")}>
+                    <Link href={route("home")}>
                         <i style={{ fontSize: "30px" }} className="p-2 zmdi zmdi-arrow-left"></i>
                     </Link>
                     <div className="flex flex-col md:flex-row -mx-4">
@@ -160,7 +160,7 @@ export default function Detail({ auth, datas, dataKomentar }) {
             <section className="bg-grey-1 py-8 lg:py-16 antialiased">
                 <div className="max-w-2xl lg:mx-28 md:mx-auto px-4">
                     <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-lg lg:text-2xl font-bold text-gray-900">Discussion ({dataKomentar.total})</h2>
+                        <h2 className="text-lg lg:text-2xl font-bold text-gray-900">Discussion ({dataKomentar.dlength()})</h2>
                     </div>
                     <form className="mb-6" onSubmit={handleSubmit}>
                         <div>
@@ -199,7 +199,7 @@ export default function Detail({ auth, datas, dataKomentar }) {
                                             src={komentar.user_gambar}
                                             alt="Profile"
                                         />
-                                        {komentar.user_nama}
+                                        {komentar.user_name}
                                     </p>
                                     <p className="text-sm text-gray-600">
                                         <time pubdate dateTime="2022-02-08" title="February 8th, 2022">

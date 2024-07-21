@@ -61,7 +61,7 @@ const { data, setData, post, errors, reset } = useForm({
                     </div>
                 </div>
                 <div className="sidebar">
-                    <Link href="/admin">
+                <Link href={route('admin.dashboard')}>
                         <i className="zmdi zmdi-view-dashboard zmdi-lg"></i>
                         <h3>Dashboard</h3>
                     </Link>
@@ -69,7 +69,7 @@ const { data, setData, post, errors, reset } = useForm({
                         <i className="zmdi  zmdi-account zmdi-lg"></i>
                         <h3>Kelolah User</h3>
                     </Link>
-                    <Link href="kelolahInstansi">
+                    <Link href={route('admin.kelolaInstansi')}>
                         <i className="zmdi  zmdi-folder zmdi-lg"></i>
                         <h3>Kelolah Instansi</h3>
                     </Link>

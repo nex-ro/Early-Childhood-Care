@@ -3,6 +3,7 @@ import '../../../css/login.css';
 import LoginImg from '../../../asset/images/signin-image.jpg'
 import '../../../asset/fonts/material-icon/css/material-design-iconic-font.css'
 import { useEffect } from 'react';
+import bg from '../../../asset/images/lgn.jpg';
 
 
 export default function Register( ) {
@@ -25,7 +26,7 @@ export default function Register( ) {
         post(route('register'));
     };
     return (
-        <div className="main" style={{"padding":"70px 0px"}}>
+        <div className="main" style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
              <Head title="Login" />
             {/* Sign up form */}
             <section className="signup">
@@ -73,6 +74,7 @@ export default function Register( ) {
                         <div className="signup-image">
                             <figure><img src={LoginImg} alt="sign up"/></figure>
                             <a href={route('login')} className="signup-image-link">Sudah memiliki Akun</a>
+                            <a href={route('registerOp')} className="signup-image-link">Daftar Akun Operator</a>
                         </div>
                     </div>
                 </div>

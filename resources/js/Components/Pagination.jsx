@@ -2,7 +2,7 @@ import { Link } from "@inertiajs/react";
 
 export default function Pagination ({links}){
     return (
-        <nav className="text-center mt-4">
+        <nav className="text-center mt-4 flex flex-row justify-center justify-items-center	">
             {links.map(link => (
                 <Link
                 preserveScroll

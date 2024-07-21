@@ -3,8 +3,11 @@ import '../../../css/admin-Dashboard.css';
 import '../../../asset/fonts/material-icon/css/material-design-iconic-font.css';
 import { Link, Head ,router} from '@inertiajs/react';
 import icon from '../../../../storage/app/public/icon/default.jpg'
+import Swal from 'sweetalert2'
+import Pagination from "@/Components/Pagination";
 
-export default function kelolahUser({users}) {
+export default function kelolahUser({users ,success}) {
+  console.log(success);
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     const sideMenu = document.querySelector('aside');
@@ -51,15 +54,15 @@ export default function kelolahUser({users}) {
           </div>
         </div>
         <div className="sidebar">
-          <Link href="/admin">
+          <Link href={route('admin.dashboard')}>
             <i className="zmdi zmdi-view-dashboard zmdi-lg"></i>
             <h3>Dashboard</h3>
           </Link>
-          <Link href="#">
+          <Link href={route('admin.kelolahUser')}>
             <i className="zmdi  zmdi-account zmdi-lg"></i>
             <h3>Kelolah User</h3>
           </Link>
-          <Link href="kelolahInstansi">
+          <Link href={route('admin.kelolaInstansi')}>
                 <i className="zmdi  zmdi-folder zmdi-lg"></i>
             <h3>Kelolah Instansi</h3>
           </Link>
@@ -72,11 +75,21 @@ export default function kelolahUser({users}) {
       <main>
         <h1>Data User</h1>
         <div className="recent-orders tbl-Full">
-          <h2>Recent Orders</h2>
+        <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+    <li className="me-2">
+        <a href={route('admin.kelolahUser')} aria-current="page" className="px-8 inline-block p-4 text-black bg-gray-300 rounded-t-lg  active dark:bg-black dark:text-white">All User</a>
+    </li>
+    <li className="me-2">
+        <a href={route('admin.kelolahOp')} aria-current="page" className="px-8 inline-block p-4 text-black bg-gray-300 rounded-t-lg ">Register Akun Operator</a>
+    </li>
+
+
+</ul>
+
           <div className="overflow-x-auto">
-  <table className="table" >
+  <table className="table divide-y divide-gray-200 border border-gray-300" >
     {/* head */}
-    <thead>
+    <thead className='bg-black text-white '>
       <tr   >
         <th>No</th>
         <th>Name</th>
@@ -97,9 +110,7 @@ export default function kelolahUser({users}) {
         <td>{user.role}</td>
         <td>{user.created_at}</td>
         <td>
-        <button onClick={(e) => deleteUser(user)}className="font-medium text-blue-600 dark:text-red-500 hover:underline mx-1">
-            Delete
-        </button>
+
         </td>
 
       </tr>
@@ -110,6 +121,10 @@ export default function kelolahUser({users}) {
     </tbody>
   </table>
 </div>
+<div className="text-center">
+    <Pagination links={users.meta.links} />
+
+    </div>
         </div>
       </main>
       <div className="right-section">

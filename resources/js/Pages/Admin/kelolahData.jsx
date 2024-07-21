@@ -4,6 +4,8 @@ import '../../../asset/fonts/material-icon/css/material-design-iconic-font.css';
 import { Link, Head ,router} from '@inertiajs/react';
 import icon from '../../../../storage/app/public/icon/default.jpg'
 import TextAreaInput from "@/Components/Modal";
+import Pagination from "@/Components/Pagination";
+
 
 
 
@@ -84,9 +86,9 @@ export default function Dashboard({datas}) {
         </Link>
           </div>
           <div className="overflow-x-auto">
-  <table className="table" >
+  <table className="table table divide-y divide-gray-200 border border-black " >
     {/* head */}
-    <thead>
+    <thead className='bg-black text-white'>
       <tr   >
         <th>No</th>
         <th>Image</th>
@@ -122,15 +124,21 @@ export default function Dashboard({datas}) {
             Delete
         </button>
         </td>
-
       </tr>
+
 
         ))}
 
 
     </tbody>
+
+
   </table>
 </div>
+<div className="text-center">
+    <Pagination links={datas.meta.links} />
+
+    </div>
         </div>
       </main>
       <div className="right-section">

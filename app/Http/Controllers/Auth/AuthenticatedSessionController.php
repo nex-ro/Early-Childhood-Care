@@ -41,8 +41,12 @@ class AuthenticatedSessionController extends Controller
         if($request->user()->role=='admin'){
             return redirect('admin');
         }
-        return redirect()->intended(route('homepage', absolute: false));
+        if($request->user()->role=='operator'){
+            return redirect('operator');
+        }
+        return redirect()->intended(route('home', absolute: false));
     }
+
 
     /**
      * Destroy an authenticated session.

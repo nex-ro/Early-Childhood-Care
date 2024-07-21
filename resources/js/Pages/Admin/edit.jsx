@@ -45,7 +45,7 @@ const { data, setData, post, errors, reset } = useForm({
     };
     const onSubmit = (e) => {
         e.preventDefault();
-post(route('admin.updateInstansi', { id: datak.id }));
+        post(route('admin.updateInstansi', { id: datak.id }));
         }
 
     return (
@@ -67,14 +67,15 @@ post(route('admin.updateInstansi', { id: datak.id }));
                         <i className="zmdi zmdi-view-dashboard zmdi-lg"></i>
                         <h3>Dashboard</h3>
                     </Link>
-                    <Link href="#">
+                    <Link href={route('admin.kelolahUser')}>
                         <i className="zmdi  zmdi-account zmdi-lg"></i>
                         <h3>Kelolah User</h3>
                     </Link>
-                    <Link href="kelolahInstansi">
+                    <Link href={route('admin.kelolaInstansi')}>
                         <i className="zmdi  zmdi-folder zmdi-lg"></i>
                         <h3>Kelolah Instansi</h3>
                     </Link>
+
                     <Link href={route("logout")} method="post">
                         <i className="zmdi zmdi-run zmdi-lg"></i>
                         <h3>Logout</h3>
