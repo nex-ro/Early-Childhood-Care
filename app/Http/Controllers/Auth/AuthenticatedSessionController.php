@@ -42,7 +42,7 @@ class AuthenticatedSessionController extends Controller
             return redirect('admin');
         }
         if($request->user()->role=='operator'){
-            return redirect('operator');
+            return redirect( route('operator.dashboard'));
         }
         return redirect()->intended(route('home', absolute: false));
     }
@@ -59,6 +59,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect(route('home'));
     }
 }

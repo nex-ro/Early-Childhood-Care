@@ -13,6 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'admin'=>\App\http\Middleware\Admin::class,
+            'operator'=>\App\http\Middleware\operator::class,
+
         ]);
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,

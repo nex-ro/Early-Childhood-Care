@@ -22,6 +22,9 @@ return new class extends Migration
             $table->float('rating', 8, 2)->default(0.0);
             $table->float('jmlhReviewer', 8, 2)->default(0);
             $table->boolean('terdaftar')->default(0);
+            $table->string('dokumentDaftar')->nullable();
+            $table->unsignedBigInteger('id_op')->nullable(); // Add the id_op column
+            $table->foreign('id_op')->references('id')->on('users')->onDelete('set null'); // Define the foreign key
             $table->timestamps();
         });
     }

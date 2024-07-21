@@ -261,7 +261,7 @@ main .analyse h3{
     margin-left: 0.6rem;
     font-size: 1rem;
 }
-
+/* Modal overlay */
 main .analyse .progresss{
     position: relative;
     width: 92px;
@@ -286,6 +286,9 @@ main .analyse .sales svg circle{
     stroke-dashoffset: -30;
     stroke-dasharray: 200;
 }
+
+
+
 
 main .analyse .visits svg circle{
     stroke: var(--color-danger);
@@ -515,6 +518,12 @@ main .recent-orders a{
     transition: all 0.3s ease;
 }
 
+.shadowBoxOnly{
+    box-shadow: var(--box-shadow);
+}
+.shadowBoxOnly:hover{
+    box-shadow: none;
+}
 .right-section .reminders .notification:hover{
     box-shadow: none;
 }

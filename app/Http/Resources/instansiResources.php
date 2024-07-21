@@ -28,6 +28,7 @@ class instansiResources extends JsonResource
             'rating' => $this->rating,
             'jmlhReviewer'=>$this->jmlhReviewer,
             'terdaftar'=>$this->terdaftar,
+            'dokumentDaftar'=>$this->dokumentDaftar? Storage::url($this->dokumentDaftar):'',
             'created_at' => (new Carbon($this->create_at))->format('y-m-d'),
             'updated_at' => (new Carbon($this->create_at))->format('y-m-d'),
         ];

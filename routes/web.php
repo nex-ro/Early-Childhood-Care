@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\operatorController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 use Inertia\Inertia;
@@ -20,19 +21,22 @@ Route::get('/regisOp', [RegisteredUserController::class, 'regisOp'])->name('regi
 Route::post('/PostregisOp', [RegisteredUserController::class, 'storeOp'])->name('postregisterOp');
 
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('operator', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::middleware(['auth', 'operator'])->group(function () {
+    Route::get('/operator', [operatorController::class, 'index'])->name('operator.dashboard');
+    Route::get('/operator/aturFile', [operatorController::class, 'aturFile'])->name('operator.aturFile');
+    Route::post('/operator/storeData', [operatorController::class, 'storeInstansi'])->name('operator.storeData');
+    Route::delete('/operator/deleteData/{id}', [operatorController::class, 'deleteData'])->name('operator.deleteData');
 
-
-
+});
 Route::middleware(['auth', 'admin'])->group(function () {
     // Route::get('/admin', fn() => Inertia::render('Dashboard'))->name('dashboard');
     // Route::resource('admin', AdminController::class);

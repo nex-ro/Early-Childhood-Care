@@ -106,21 +106,23 @@ class AdminController extends Controller
         if ($request->status === 'Diterima' || $request->status === 'Ditolak') {
             // Jika status diterima, tambahkan data ke tabel User
             if ($request->status === 'Diterima') {
-                $id_instansi=$instansiOp->instansi_id;
+                $id_instansi = $instansiOp->instansi_id;
                 $instansi = Instansi::findOrFail($id_instansi);
-                $instansi->terdaftar = true;
-                $instansi->save();
 
 
 
                 // Membuat entri baru di tabel User
-                User::create([
+                $user =User::create([
                     'name' => $instansiOp->nama,       // Nama dari InstansiOp
                     'email' => $instansiOp->email,     // Email dari InstansiOp
                     'password' =>$instansiOp->password, // Password dari InstansiOp atau default
                     'noHp' => $instansiOp->noHp,       // No Hp dari InstansiOp
                     'role' => 'operator',
                 ]);
+                $instansi->id_op = $user->id;
+                $instansi->terdaftar = true;
+                $instansi->save();
+
             }
 
             // Hapus entri dari tabel InstansiOp
