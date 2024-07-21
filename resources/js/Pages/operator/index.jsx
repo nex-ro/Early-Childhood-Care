@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import '../../../css/admin-Dashboard.css';
 import '../../../asset/fonts/material-icon/css/material-design-iconic-font.css';
-import { Link, Head } from '@inertiajs/react';
+import { Link, Head ,router} from '@inertiajs/react';
 import icon from '../../../../storage/app/public/icon/default.jpg'
 import logo from '../../../../storage/app/public/icon/logo.png'
-
-export default function Dashboard({auth}) {
+import Swal from 'sweetalert2';
+import Dropdown from '@/Components/Dropdown';
+import Pagination from "@/Components/Pagination";
+export default function Dashboard({auth,pendaftar}) {
   const [darkMode, setDarkMode] = useState(false);
-
+console.log(pendaftar);
   useEffect(() => {
     const sideMenu = document.querySelector('aside');
     const menuBtn = document.getElementById('menu-btn');
@@ -32,6 +34,18 @@ export default function Dashboard({auth}) {
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     document.body.classList.toggle('dark-mode-variables');
+  };
+
+
+  const updateUserStatus = (userId, status) => {
+    router.put(route('operator.updateStatus', userId), { status }, {
+      onSuccess: () => {
+        Swal.fire('Success', 'User status updated successfully', 'success');
+      },
+      onError: (error) => {
+        Swal.fire('Error', 'Failed to update user status', 'error');
+      }
+    });
   };
 
   return (
@@ -65,29 +79,76 @@ export default function Dashboard({auth}) {
         <h1></h1>
         <div className="recent-orders tbl-Full">
           <h2>Daftar Pendaftar</h2>
-          <div className="overflow-x-auto">
-  <table className="shadowBoxOnly table border border-gray-300 border-collapse w-full" >
-    {/* head */}
-    <thead className='bg-black text-white'>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>FIle</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {/* row 1 */}
-      <tr>
-        <th>1</th>
-        <td>Deri</td>
-        <td><i class="zmdi zmdi-file"></i></td>
-        <td>waiting</td>
-      </tr>
-      {/* row 2 */}
-    </tbody>
-  </table>
-</div>
+          <div className="">
+            <table className="table divide-y divide-gray-200 border border-gray-300">
+              <thead className='bg-black text-white'>
+                <tr>
+                  <th>No</th>
+                  <th>Name pendaftar</th>
+                  <th>Tanggal Mendaftar</th>
+                  <th>File Pendaftaran</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pendaftar.data.length === 0 ? (
+                  <tr>
+                    <td colSpan="8" className="text-center p-4">Data belum ada</td>
+                  </tr>
+                ) : (
+                    pendaftar.data.map((user) => (
+                    <tr key={user.id}>
+                      <td>{user.id}</td>
+                      <td>{user.nama}</td>
+                      <td>{user.created_at}</td>
+                      <td><a href={user.file} target='_blank'><i style={{fontSize:"2rem"}} class="zmdi zmdi-file"></i>
+</a></td>
+                      <td>
+                        <Dropdown>
+                          <Dropdown.Trigger>
+                            <span className="inline-flex rounded-md">
+                              <button
+                                type="button"
+                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                              >
+                                {user.status}
+                                <svg
+                                  className="ms-2 -me-0.5 h-4 w-4"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                              </button>
+                            </span>
+                          </Dropdown.Trigger>
+                          <Dropdown.Content className="z-99">
+                            <Dropdown.Link as="button" onClick={(e) => { e.preventDefault(); updateUserStatus(user.id, 'Diterima'); }}>
+                              Terima
+                            </Dropdown.Link>
+                            <Dropdown.Link as="button" onClick={(e) => { e.preventDefault(); updateUserStatus(user.id, 'Waiting'); }}>
+                              Waiting
+                            </Dropdown.Link>
+                            <Dropdown.Link as="button" onClick={(e) => { e.preventDefault(); updateUserStatus(user.id, 'Ditolak'); }}>
+                              Tolak
+                            </Dropdown.Link>
+                          </Dropdown.Content>
+                        </Dropdown>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+            <div className="text-center">
+              <Pagination links={pendaftar.meta.links} />
+              </div>
+        </div>
         </div>
       </main>
       <div className="right-section">

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Instansi;
 use App\Http\Resources\instansiResources;
+use App\Http\Resources\pendaftaran_resource;
+use App\Models\pendaftaran;
 use Illuminate\Support\Facades\Storage;
 
 class operatorController extends Controller
@@ -17,13 +19,16 @@ class operatorController extends Controller
     {
         // Get the currently authenticated user
         $user = Auth::user();
-
         // Query Instansi where id_op equals the authenticated user's ID
         $instansi = Instansi::where('id_op', $user->id)->get();
+        $query = pendaftaran::query();
+        $pendaftar=$query->paginate(10);
 
         // Pass the instansi data to the Inertia component
         return Inertia::render('operator/index', [
-            'instansi' => $instansi
+            'instansi' => $instansi,
+            "pendaftar" =>pendaftaran_resource::collection($pendaftar),
+
         ]);
     }
 
@@ -87,11 +92,27 @@ class operatorController extends Controller
             $instansi->dokumentDaftar = null;
             $instansi->save();
 
+
             // Redirect ke rute 'operator.aturFile' dengan pesan sukses
             return redirect()->route('operator.aturFile')->with('success', 'dokumentDaftar has been set to null successfully.');
         } catch (\Exception $e) {
             // Redirect ke rute 'operator.aturFile' dengan pesan kesalahan
             return redirect()->route('operator.aturFile')->with('error', 'There was an error updating the data: ' . $e->getMessage());
         }
+    }
+    public function updateStatus(Request $request, $id){
+        $pendaftaran = pendaftaran::find($id);
+
+    // Pastikan model ditemukan
+    if (!$pendaftaran) {
+        return redirect()->back()->with('error', 'Pendaftaran not found');
+    }
+
+    // Update status
+    $pendaftaran->status = $request->status;
+    $pendaftaran->save();
+
+    // Redirect dengan pesan sukses
+    return redirect()->back()->with('success', 'Status updated successfully');
     }
 }

@@ -1,13 +1,19 @@
 import User_header from '@/Components/User_header';
 import User_footer from '@/Components/User_footer';
 import React, { useState, useEffect } from "react";
-import { Link, router } from "@inertiajs/react";
+import { Link, router,useForm } from "@inertiajs/react";
 import "../../../asset/fonts/material-icon/css/material-design-iconic-font.css";
 import { Inertia } from '@inertiajs/inertia'; // Ensure you import Inertia
 
 export default function Detail({ auth, datas, dataKomentar }) {
     const instansi = datas['data'];
-    console.log(datas);
+    const { data, setData, post, errors, reset } = useForm({
+        nama: "",
+        file:"",
+        instansi_id: instansi.id,
+        user_id: "",
+
+    });
     // Generate star rating
     const generateStars = (rating, jmlhReviewer) => {
         const newStars = [];
@@ -35,7 +41,7 @@ export default function Detail({ auth, datas, dataKomentar }) {
     // State for rating and comment
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
-    const [errors, setErrors] = useState({ rating: false, comment: false });
+    const [err, setErrors] = useState({ rating: false, comment: false });
 
     // Handle star rating click
     const handleStarClick = (index) => {
@@ -112,8 +118,12 @@ export default function Detail({ auth, datas, dataKomentar }) {
         }
         router.delete(route("user.destroyKoment", id));
     };
-    const daftar=(id_instansi , id_user)=>{
 
+    const submit = (e) => {
+        e.preventDefault();
+        setData("user_id",auth.user.id)
+        console.log(data)
+        post(route('register.store'))
     }
 
     return (
@@ -165,7 +175,7 @@ export default function Detail({ auth, datas, dataKomentar }) {
                                     {instansi.Deskripsi}
                                 </p>
                             </div>
-                            {instansi.terdaftar && instansi.dokumentDaftar ?   <button onClick={openModal} style={{ fontSize: '2rem' }} className="w-full focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 " type="button">
+                            {instansi.terdaftar && instansi.dokumentDaftar && auth.user ?   <button onClick={openModal} style={{ fontSize: '2rem' }} className="w-full focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 " type="button">
                                 Daftar
                             </button> :""}
                              {/* Main modal */}
@@ -208,23 +218,26 @@ export default function Detail({ auth, datas, dataKomentar }) {
                 </button>
               </div>
               {/* Modal body */}
-              <form className="p-4 md:p-5">
+              <form onSubmit={submit} className="p-4 md:p-5">
                 <div className="grid gap-4 mb-4 grid-cols-2">
                   <div className="col-span-2">
                     <label
                       htmlFor="name"
                       className="block mb-2 text-sm font-medium text-gray-900 "
                     >
-                      Name
+                      Nama
                     </label>
                     <input
                       type="text"
                       name="name"
                       id="name"
+                      value={data.nama}
+                      onChange={e => setData('nama', e.target.value)}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                       placeholder="Type product name"
                       required
                     />
+                    <i style={{fontSize:"0.8rem" ,color:"red"}}>{errors.name}</i>
                   </div>
                   <div className="col-span-2 sm:col-span-1">
                     <label
@@ -233,15 +246,9 @@ export default function Detail({ auth, datas, dataKomentar }) {
                     >
                       Dokument Pendaftaran
                     </label>
-                    <input
-                      type="number"
-                      name="price"
-                      id="price"
-                      disabled
-                      className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                      placeholder='📁 file'
-                      required
-                    />
+                    <a href={instansi.dokumentDaftar} target='_blank' className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
+                        📁 file
+                    </a>
                   </div>
                   <i style={{fontSize:"0.95rem"}} >(*Silakan print dan lengkapi file ini, kemudian pindai (scan) untuk dikirim)</i>
                   <div className="col-span-2">
@@ -252,16 +259,19 @@ export default function Detail({ auth, datas, dataKomentar }) {
                       Form pendaftaran
                     </label>
                     <input
-                      type="text"
-                      name="name"
+                      type="file"
+                      name="file"
+                      onChange={e => setData('file', e.target.files[0])}
                       id="name"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                       placeholder="Type product name"
                       required
                     />
+                    <i style={{fontSize:"0.8rem" ,color:"red"}}>{errors.file}</i>
+
                   </div>
                 </div>
-                <button onClick={()=>{daftar}} class="text-white inline-flex w-full justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                <button  type="submit" class="text-white inline-flex w-full justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
                     Daftar
                 </button>
               </form>
@@ -282,7 +292,7 @@ export default function Detail({ auth, datas, dataKomentar }) {
                     </div>
                     <form className="mb-6" onSubmit={handleSubmit}>
                         <div>
-                            {errors.rating && <p className="text-red-500 text-xs italic">Rating is required</p>}
+                            {err.rating && <p className="text-red-500 text-xs italic">Rating is required</p>}
                             <div>
                                 {Array(5)
                                     .fill(0)
@@ -295,7 +305,7 @@ export default function Detail({ auth, datas, dataKomentar }) {
                                     ))}
                             </div>
                         </div>
-                        {errors.comment && <p className="text-red-500 text-xs italic">Comment is required</p>}
+                        {err.comment && <p className="text-red-500 text-xs italic">Comment is required</p>}
                         <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-600">
                             <label htmlFor="comment" className="sr-only">Your comment</label>
                             <textarea id="comment" rows="6"

@@ -1,5 +1,5 @@
 import Dropdown from '@/Components/Dropdown';
-import { Link, router } from "@inertiajs/react";
+import { Link, router ,route} from "@inertiajs/react";
 
 export default function User_header({ auth }) {
     const stylee = {
@@ -11,7 +11,7 @@ export default function User_header({ auth }) {
         <nav style={stylee} className="rounded-lg shadow mx-4 bg-white">
             <div className="w-full mx-auto max-w-screen-xl p-4 no-wrap flex flex-row items-center justify-between px-16">
                 <span className="text-sm text-gray-500 sm:text-center">
-                    <a href="https://flowbite.com/" className="hover:underline">
+                    <a href={route('home')} className="hover:underline">
                         Early Childhood{" "}
                         <span className="text-red-500">Care</span>
                     </a>

@@ -26,6 +26,8 @@ Route::post('/PostregisOp', [RegisteredUserController::class, 'storeOp'])->name(
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/profile', [UserController::class, 'profile'])->name('user.profile')->middleware('auth');
+Route::post('/storeRegis', [UserController::class, 'storeRegis'])->name('register.store')->middleware('auth');
+
 
 Route::middleware('auth')->group(function () {
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -37,6 +39,9 @@ Route::middleware(['auth', 'operator'])->group(function () {
     Route::get('/operator/aturFile', [operatorController::class, 'aturFile'])->name('operator.aturFile');
     Route::post('/operator/storeData', [operatorController::class, 'storeInstansi'])->name('operator.storeData');
     Route::delete('/operator/deleteData/{id}', [operatorController::class, 'deleteData'])->name('operator.deleteData');
+    Route::put('/operator/update-status/{id}', [operatorController::class, 'updateStatus'])->name('operator.updateStatus');
+
+
 });
 Route::middleware(['auth', 'admin'])->group(function () {
     // Route::get('/admin', fn() => Inertia::render('Dashboard'))->name('dashboard');

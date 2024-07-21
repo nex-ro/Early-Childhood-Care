@@ -118,7 +118,7 @@ export default function KelolahUser({ users, success, auth }) {
                       <td>{user.email}</td>
                       <td>{user.noHp}</td>
                       <td>{user.nik}</td>
-                      <td><a href={user.surat} target='_blank'>Tes</a></td>
+                      <td><a href={user.surat} target='_blank'><i style={{fontSize:"2rem"}} class="zmdi zmdi-file"></i></a></td>
                       <td>
                         <Dropdown>
                           <Dropdown.Trigger>

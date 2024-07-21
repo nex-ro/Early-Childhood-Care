@@ -6,6 +6,7 @@ use App\Models\user;
 use App\Http\Requests\StoreuserRequest;
 use App\Http\Requests\StoreCommentarRequest;
 use App\Http\Requests\UpdateuserRequest;
+use App\Http\Requests\StorependaftaraanRequest;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Models\Instansi;
@@ -13,6 +14,7 @@ use App\Http\Resources\instansiResources;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\komentar;
+use App\Models\pendaftaran;
 use App\Http\Resources\komentarResource;
 use App\Http\Resources\userResources;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -57,11 +59,22 @@ class UserController extends Controller
         return Inertia::render('user/profile', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
-
         ]);
     }
 
+    public function storeRegis(StorependaftaraanRequest $request){
+        $data = $request->validated();
+        $id = $data['instansi_id'];
+        $image = $data['file'] ?? null;
+        if($image){
+            $data['file'] = $image->store('file_Pendaftar/' .Str::random(), 'public');
+        }
 
+        pendaftaran::create($data);
+
+        return to_route('home',)
+        ->with('Success', 'Project was created');
+    }
     /**
      * Show the form for creating a new resource.
      */
