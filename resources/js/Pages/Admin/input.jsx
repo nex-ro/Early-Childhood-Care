@@ -3,10 +3,10 @@ import "../../../css/admin-Dashboard.css";
 import "../../../asset/fonts/material-icon/css/material-design-iconic-font.css";
 import { Link, Head, router ,useForm } from "@inertiajs/react";
 import icon from "../../../../storage/app/public/icon/default.jpg";
+import MainHeader from '@/Components/MainHeader';
+
 
 export default function kelolahUser({ users }) {
-
-
 const { data, setData, post, errors, reset } = useForm({
     gambar: "",
     nama_instansi: "",
@@ -48,6 +48,8 @@ const { data, setData, post, errors, reset } = useForm({
 
     return (
         <div className="kotak">
+            <MainHeader></MainHeader>
+
             <aside>
                 <div className="toggle">
                     <div className="logo">

@@ -5,7 +5,7 @@ import RegisterImg from '../../../asset/images/signup-image.jpg';
 import LoginImg from '../../../asset/images/signin-image.jpg'
 import '../../../asset/fonts/material-icon/css/material-design-iconic-font.css'
 import bg from '../../../asset/images/lgn.jpg';
-
+import MainHeader from '@/Components/MainHeader';
 
 export default function Login( ) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -29,7 +29,8 @@ export default function Login( ) {
     return (
         <div className="main"                style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
         >
-             <Head title="Login" />
+            <MainHeader></MainHeader>
+
 
             {/* Sign in Form */}
             <section className="sign-in">

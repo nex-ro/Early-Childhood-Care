@@ -6,6 +6,8 @@ import icon from '../../../../storage/app/public/icon/default.jpg'
 import Swal from 'sweetalert2'
 import Pagination from "@/Components/Pagination";
 import logo from '../../../../storage/app/public/icon/logo.png'
+import MainHeader from '@/Components/MainHeader';
+
 
 export default function kelolahUser({auth,users ,success}) {
   console.log(success);
@@ -44,6 +46,7 @@ export default function kelolahUser({auth,users ,success}) {
 }
   return (
     <div className="kotak">
+        <MainHeader></MainHeader>
       <aside>
         <div className="toggle">
           <div className="logo">

@@ -1,5 +1,6 @@
 import Dropdown from '@/Components/Dropdown';
-import { Link, router ,route} from "@inertiajs/react";
+// import { Link, router ,route} from "@inertiajs/react";
+import { Link, Head, router } from "@inertiajs/react";
 
 export default function User_header({ auth }) {
     const stylee = {

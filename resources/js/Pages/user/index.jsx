@@ -4,7 +4,8 @@ import image from "../../../../storage/app/public/no-image.png";
 import Pagination from "@/Components/Pagination";
 import "../../../css/homepage.css";
 import User_header from '@/Components/User_header';
-import User_footer from '@/Components/User_footer'
+import User_footer from '@/Components/User_footer';
+import MainHeader from '@/Components/MainHeader';
 
 import "../../../asset/fonts/material-icon/css/material-design-iconic-font.css";
 
@@ -76,6 +77,7 @@ const Homepage = ({ auth, datas, queryParams = null }) => {
 
     return (
         <div className="bg-gray-100 font-sans">
+            <MainHeader></MainHeader>
             <div className="backgroundaja"></div>
             <div className="tes">
                 <User_header  auth={auth}/>

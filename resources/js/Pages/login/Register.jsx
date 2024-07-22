@@ -27,7 +27,8 @@ export default function Register( ) {
     };
     return (
         <div className="main" style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
-             <Head title="Login" />
+            <MainHeader></MainHeader>
+
             {/* Sign up form */}
             <section className="signup">
                 <div className="containerItem">

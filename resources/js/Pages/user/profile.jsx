@@ -5,10 +5,13 @@ import UpdateProfileInformationForm from './Partials/UpdateProfileInformationFor
 import { Head } from '@inertiajs/react';
 import User_header from '@/Components/User_header';
 import User_footer from '@/Components/User_footer';
+import MainHeader from '@/Components/MainHeader';
 
 export default function Edit({ auth, mustVerifyEmail, status }) {
     return (
         <div className='bg-gray-100'>
+        <MainHeader></MainHeader>
+
         <Head title="Profile" />
         <User_header  auth={auth}/>
 

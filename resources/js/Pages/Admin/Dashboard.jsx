@@ -5,7 +5,7 @@ import '../../../asset/fonts/material-icon/css/material-design-iconic-font.css';
 // import logo from '/storage/app/public/icon/logo'
 import icon from '../../../../storage/app/public/icon/default.jpg'
 import logo from '../../../../storage/app/public/icon/logo.png'
-
+import MainHeader from '@/Components/MainHeader';
 
 
 export default function Dashboard({Auth,}) {
@@ -41,6 +41,7 @@ export default function Dashboard({Auth,}) {
 
   return (
     <div className="kotak">
+        <MainHeader></MainHeader>
       <aside>
         <div className="toggle">
           <div className="logo">

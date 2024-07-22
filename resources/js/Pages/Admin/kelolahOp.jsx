@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import Dropdown from '@/Components/Dropdown';
 import Pagination from "@/Components/Pagination";
 import logo from '../../../../storage/app/public/icon/logo.png'
-
+import MainHeader from '@/Components/MainHeader';
 export default function KelolahUser({ users, success, auth }) {
   console.log(users);
   const [darkMode, setDarkMode] = useState(false);
@@ -50,6 +50,7 @@ export default function KelolahUser({ users, success, auth }) {
 
   return (
     <div className="kotak">
+        <MainHeader></MainHeader>
       <aside>
         <div className="toggle">
           <div className="logo">

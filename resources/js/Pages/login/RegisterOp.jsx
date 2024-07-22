@@ -4,6 +4,7 @@ import LoginImg from '../../../asset/images/sekolah.png';
 import '../../../asset/fonts/material-icon/css/material-design-iconic-font.css';
 import { useEffect } from 'react';
 import bg from '../../../asset/images/lgn.jpg';
+import MainHeader from '@/Components/MainHeader';
 
 export default function Register({ datas }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -31,7 +32,7 @@ export default function Register({ datas }) {
 
     return (
         <div className="main" style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-            <Head title="Register" />
+        <MainHeader></MainHeader>
             <section className="signup">
                 <div className="containerItem">
                     <div className="signup-content">

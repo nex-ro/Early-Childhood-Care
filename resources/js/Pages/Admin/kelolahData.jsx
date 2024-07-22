@@ -7,7 +7,7 @@ import TextAreaInput from "@/Components/Modal";
 import Pagination from "@/Components/Pagination";
 import logo from '../../../../storage/app/public/icon/logo.png'
 
-
+import MainHeader from '@/Components/MainHeader';
 
 
 export default function Dashboard({auth,datas}) {
@@ -48,6 +48,7 @@ export default function Dashboard({auth,datas}) {
 
   return (
     <div className="kotak">
+        <MainHeader></MainHeader>
       <aside>
         <div className="toggle">
           <div className="logo">
