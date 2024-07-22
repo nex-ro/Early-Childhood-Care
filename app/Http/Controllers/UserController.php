@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\komentar;
 use App\Models\pendaftaran;
 use App\Http\Resources\komentarResource;
+use App\Http\Resources\pendaftaran_resource;
 use App\Http\Resources\userResources;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
@@ -30,6 +31,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+
         $query = Instansi::query();
 
         if (request("name")) {
@@ -46,11 +49,31 @@ class UserController extends Controller
         $query->orderBy('rating', 'desc');
         // Paginate the results
         $instansi = $query->paginate(10);
-        return Inertia::render('user/index', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
-            'datas' => InstansiResources::collection($instansi),
-        ]);
+        if ($user) {
+            // Ambil data pendaftaran yang memiliki user_id == $user->id
+            $pendaftaran = Pendaftaran::where('user_id', $user->id)->get();
+
+            // Query Instansi
+            $query = Instansi::query()->with(['pendaftaran' => function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            }]);
+
+            return Inertia::render('user/index', [
+                'canLogin' => Route::has('login'),
+                'canRegister' => Route::has('register'),
+                'datas' => InstansiResources::collection($instansi),
+                'pendaftaran'=>$pendaftaran,
+            ]);
+        }
+        else{
+            return Inertia::render('user/index', [
+                'canLogin' => Route::has('login'),
+                'canRegister' => Route::has('register'),
+                'datas' => InstansiResources::collection($instansi),
+            ]);
+        }
+
+
     }
 
     public function profile(Request $request)

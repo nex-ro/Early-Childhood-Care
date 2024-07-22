@@ -3,14 +3,16 @@ import { Link, router } from "@inertiajs/react";
 import image from "../../../../storage/app/public/no-image.png";
 import Pagination from "@/Components/Pagination";
 import "../../../css/homepage.css";
-import User_header from '@/Components/User_header';
-import User_footer from '@/Components/User_footer';
-import MainHeader from '@/Components/MainHeader';
+import User_header from "@/Components/User_header";
+import User_footer from "@/Components/User_footer";
+import MainHeader from "@/Components/MainHeader";
 
 import "../../../asset/fonts/material-icon/css/material-design-iconic-font.css";
 
-const Homepage = ({ auth, datas, queryParams = null }) => {
+const Homepage = ({ auth, datas, queryParams = null, pendaftaran }) => {
     // Initialize queryParams
+    console.log(pendaftaran);
+
     queryParams = queryParams || {};
     // Update query parameters and fetch results
     const searchFieldChange = (name, value) => {
@@ -33,28 +35,38 @@ const Homepage = ({ auth, datas, queryParams = null }) => {
         setActiveTab(tab);
     };
 
-    const generateStars = (rating ,jmlhReviewer) => {
+    const generateStars = (rating, jmlhReviewer) => {
         const newStars = [];
-        const roundedRating = Math.round(rating/jmlhReviewer);
+        const roundedRating = Math.round(rating / jmlhReviewer);
 
-        if (!rating/jmlhReviewer) {
-            newStars.push(<i style={{fontSize: "1rem",}} key="not-rated">Not rated yet</i>);
+        if (!rating / jmlhReviewer) {
+            newStars.push(
+                <i style={{ fontSize: "1rem" }} key="not-rated">
+                    Not rated yet
+                </i>
+            );
         } else {
             for (let i = 1; i <= 5; i++) {
                 newStars.push(
                     <i
                         style={{
                             fontSize: "24px",
-                            color: i <= roundedRating ? "gold" : "grey"
+                            color: i <= roundedRating ? "gold" : "grey",
                         }}
                         key={i}
                         className={`zmdi ${
-                            i <= roundedRating ? "zmdi-star" : "zmdi-star-outline"
+                            i <= roundedRating
+                                ? "zmdi-star"
+                                : "zmdi-star-outline"
                         }`}
                     ></i>
                 );
             }
-            newStars.push(<p className="ml-3" style={{fontSize: "1rem"}} >{(rating / jmlhReviewer).toFixed(2)}</p>)
+            newStars.push(
+                <p className="ml-3" style={{ fontSize: "1rem" }}>
+                    {(rating / jmlhReviewer).toFixed(2)}
+                </p>
+            );
         }
 
         return newStars;
@@ -80,9 +92,9 @@ const Homepage = ({ auth, datas, queryParams = null }) => {
             <MainHeader></MainHeader>
             <div className="backgroundaja"></div>
             <div className="tes">
-                <User_header  auth={auth}/>
+                <User_header auth={auth} />
                 <h1 className="text-center text-white my-8 text-3xl font-bold">
-                    "Tumbuh Kembang Optimal, Masa Depan Gemilang{" "}
+                    "Tumbuh Kembang Optimal, Masa Depan Gemilang"
                 </h1>
                 <div className="shadowBox container containerBSR mx-auto max-w-xl p-8 bg-white shadow-lg rounded-lg">
                     <div className="tabs flex justify-center">
@@ -197,6 +209,36 @@ const Homepage = ({ auth, datas, queryParams = null }) => {
                     </div>
                 </div>
             </div>
+            {pendaftaran ? pendaftaran.length > 0 ? (
+    <div className="w-full flex justify-center">
+        <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <th scope="col" className="px-6 py-3">Nama Sekolah</th>
+                        <th scope="col" className="px-6 py-3">Tanggal Mendaftar</th>
+                        <th scope="col" className="px-6 py-3">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {pendaftaran.map((item) => (
+                        <tr key={item.id} className="bg-white border-b">
+                            <th
+                                scope="row"
+                                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                            >
+                                {item.nama}
+                            </th>
+                            <td className="px-6 py-4">{item.created_at}</td>
+                            <td className="px-6 py-4">{item.status}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    </div>
+) : "" : ""}
+
             <div className="container mx-auto my-8 p-1">
                 <h1 className="mb-2 cardTtl text-left text-lg font-semibold mb-4">
                     Sekolah unggulan
@@ -215,7 +257,10 @@ const Homepage = ({ auth, datas, queryParams = null }) => {
                                         {data.nama_instansi}
                                     </h5>
                                     <div className="bintang flex flex-column mb-2">
-                                        {generateStars(data.rating,data.jmlhReviewer)}
+                                        {generateStars(
+                                            data.rating,
+                                            data.jmlhReviewer
+                                        )}
                                     </div>
                                     <p className="card-text text-gray-700 mb-4">
                                         {data.Deskripsi}
@@ -233,7 +278,7 @@ const Homepage = ({ auth, datas, queryParams = null }) => {
                 </div>
                 <Pagination links={datas.meta.links} />
             </div>
-<User_footer/>
+            <User_footer />
         </div>
     );
 };

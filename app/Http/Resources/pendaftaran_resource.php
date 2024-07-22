@@ -19,6 +19,7 @@ class pendaftaran_resource extends JsonResource
         return[
             'id' => $this->id,
             "instansi_id" => $this->instansi_id,
+            'instansi_name' => $this->instansi ? $this->instansi->nama_instansi : 'Unknown User',
             "user_id" => $this->user_id,
             "nama" => $this->nama,
             "status" => $this->status,

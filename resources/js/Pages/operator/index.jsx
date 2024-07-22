@@ -9,7 +9,8 @@ import Dropdown from '@/Components/Dropdown';
 import Pagination from "@/Components/Pagination";
 export default function Dashboard({auth,pendaftar}) {
   const [darkMode, setDarkMode] = useState(false);
-console.log(pendaftar);
+    console.log(pendaftar);
+
   useEffect(() => {
     const sideMenu = document.querySelector('aside');
     const menuBtn = document.getElementById('menu-btn');

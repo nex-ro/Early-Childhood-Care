@@ -4,7 +4,7 @@ import LoginImg from '../../../asset/images/signin-image.jpg'
 import '../../../asset/fonts/material-icon/css/material-design-iconic-font.css'
 import { useEffect } from 'react';
 import bg from '../../../asset/images/lgn.jpg';
-
+import MainHeader from '@/Components/MainHeader';
 
 export default function Register( ) {
     const { data, setData, post, processing, errors, reset } = useForm({

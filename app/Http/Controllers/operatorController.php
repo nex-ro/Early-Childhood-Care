@@ -24,6 +24,7 @@ class operatorController extends Controller
         $query = pendaftaran::query();
         $pendaftar=$query->paginate(10);
 
+
         // Pass the instansi data to the Inertia component
         return Inertia::render('operator/index', [
             'instansi' => $instansi,

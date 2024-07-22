@@ -20,6 +20,12 @@ class Instansi extends Model
         return $this->hasMany(InstansiOp::class);
     }
 
+    // Relasi ke model Pendaftaran
+    public function pendaftarans()
+    {
+        return $this->hasMany(Pendaftaran::class, 'instansi_id');
+    }
+
 }
 
 
